@@ -1,34 +1,33 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  ChangeDetectionStrategy,
+  input,
+  output,
+} from '@angular/core';
+import { Friend } from '../types';
 
-type Friend = { id: string; name: string };
 @Component({
   selector: 'app-friend-list',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [],
   template: `
-    @for (friend of friends; track friend.id) {
-      <ul>
+    <ul>
+      @for (friend of peopleToList(); track friend.id) {
         <li>
-          <button (click)="changeIt(friend)">{{ friend.name }}</button>
+          <button (click)="personSelected.emit(friend)">
+            {{ friend.name }}
+          </button>
         </li>
-      </ul>
-    } @empty {
-      <p>Sorry, no friends! So Sad!</p>
-    }
+      } @empty {
+        <p>Sorry, no friends! So Sad!</p>
+      }
+    </ul>
   `,
   styles: ``,
 })
 export class FriendListComponent {
   // all data must be a signal or
   // if you really must, an observable
-  friends: Friend[] = [
-    { id: '1', name: 'Bob Smith' },
-    { id: '2', name: 'Jill Smith' },
-    { id: '3', name: 'Ray Palmer' },
-    { id: '4', name: 'Stacey Gonzalez' },
-  ];
-
-  changeIt(friend: Friend) {
-    friend.name = friend.name.toUpperCase();
-  }
+  peopleToList = input.required<Friend[]>();
+  personSelected = output<Friend>();
 }
