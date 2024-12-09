@@ -7,7 +7,11 @@ type Friend = { id: string; name: string };
   imports: [],
   template: `
     @for (friend of friends; track friend.id) {
-      <button (click)="changeIt(friend)">{{ friend.name }}</button>
+      <li>
+        <button (click)="changeIt(friend)">{{ friend.name }}</button>
+      </li>
+    } @empty {
+      <p>Sorry, no friends! So Sad!</p>
     }
   `,
   styles: ``,
