@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 
-import { WelcomeComponent } from './components/welcome.component';
+import { HeaderComponent } from './components/header.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   template: `
+    <app-header />
     <main class="container mx-auto">
-      <app-welcome />
+      <router-outlet />
     </main>
   `,
   styles: [],
-  imports: [WelcomeComponent],
+  imports: [HeaderComponent, RouterOutlet],
 })
 export class AppComponent {}
