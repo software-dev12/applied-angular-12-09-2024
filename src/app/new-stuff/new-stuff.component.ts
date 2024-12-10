@@ -1,20 +1,22 @@
-import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FriendListComponent } from './components/friend-list.component';
-import { Friend } from './types';
+import { FriendStatsComponent } from './components/friend-stats.component';
+import { FriendsStore } from './services/friends.store';
 
 @Component({
   selector: 'app-stuff',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FriendListComponent],
+  imports: [FriendListComponent, FriendStatsComponent],
   template: `
     <p>Meal Trading</p>
+    <app-friend-stats [numberOfFriends]="store.numberOfFriends()" />
     <app-friend-list
-      [peopleToList]="friends()"
-      (personSelected)="selectedFriend.set($event)"
+      [peopleToList]="store.entities()"
+      (personSelected)="store.setSelectedFriend($event)"
     />
-    @if (selectedFriend() !== undefined) {
-      <p>You selected {{ selectedFriend()?.name }}</p>
-      <button class="btn btn-danger" (click)="unfriend()">
+    @if (store.selectedFriend() !== undefined) {
+      <p>You selected {{ store.selectedFriend()?.name }}</p>
+      <button class="btn btn-danger" (click)="store.unFriend()">
         Unfriend This Person?
       </button>
     }
@@ -22,20 +24,5 @@ import { Friend } from './types';
   styles: ``,
 })
 export class NewStuffComponent {
-  selectedFriend = signal<Friend | undefined>(undefined);
-  friends = signal<Friend[]>([
-    { id: '1', name: 'Bob Smith' },
-    { id: '2', name: 'Jill Smith' },
-    { id: '3', name: 'Ray Palmer' },
-    { id: '4', name: 'Stacey Gonzalez' },
-  ]);
-
-  unfriend() {
-    if (this.selectedFriend()) {
-      this.friends.update((f) =>
-        f.filter((f) => f.id !== this.selectedFriend()?.id),
-      );
-    }
-    this.selectedFriend.set(undefined);
-  }
+  store = inject(FriendsStore);
 }
