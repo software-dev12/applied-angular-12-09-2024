@@ -16,6 +16,10 @@ export const routes: Routes = [
       import('./meals/meals.routes').then((c) => c.MEAL_ROUTES),
   },
   {
+    path: 'atm',
+    loadChildren: () => import('./atm/atm.routes').then((r) => r.ATM_ROUTES),
+  },
+  {
     path: 'demo',
     component: DemoComponent,
   },

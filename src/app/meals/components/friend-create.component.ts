@@ -11,6 +11,8 @@ import {
   Validators,
 } from '@angular/forms';
 import { FriendsStore } from '../services/friends.store';
+import { debounceTime, filter, map, tap } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-friend-create',
@@ -66,6 +68,19 @@ export class FriendCreateComponent {
       nonNullable: true,
     }),
   });
+
+  constructor() {
+    this.form.controls.name.setValue(this.store.savedName());
+
+    this.form.controls.name.valueChanges
+      .pipe(
+        debounceTime(250),
+        filter(() => this.form.controls.name.valid),
+        tap((r) => this.store.setSavedName(r)),
+        takeUntilDestroyed(), /// working on older angular apps.
+      )
+      .subscribe();
+  }
 
   addFriend() {
     if (this.form.valid) {

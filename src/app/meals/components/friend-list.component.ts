@@ -7,23 +7,26 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterLink, RouterOutlet, RouterLinkActive],
   template: `
-    <ul>
-      @for (friend of store.entities(); track friend.id) {
-        <li class="flex flex-col gap-4">
-          <a
-            [routerLink]="[friend.id]"
-            class="btn m-4"
-            [routerLinkActive]="['btn-primary']"
-          >
-            {{ friend.name }}
-          </a>
-        </li>
-      } @empty {
-        <p>Sorry, no friends! So Sad!</p>
-      }
-    </ul>
-
-    <router-outlet />
+    <div class="grid grid-cols-4">
+      <ul class="col-span-1">
+        @for (friend of store.entities(); track friend.id) {
+          <li class="flex flex-col gap-4">
+            <a
+              [routerLink]="[friend.id]"
+              class="btn m-4"
+              [routerLinkActive]="['btn-primary']"
+            >
+              {{ friend.name }}
+            </a>
+          </li>
+        } @empty {
+          <p>Sorry, no friends! So Sad!</p>
+        }
+      </ul>
+      <div class="col-span-3">
+        <router-outlet />
+      </div>
+    </div>
   `,
   styles: ``,
 })

@@ -4,6 +4,7 @@ import {
   provideRouter,
   withComponentInputBinding,
   withPreloading,
+  withViewTransitions,
 } from '@angular/router';
 
 import { routes } from './app.routes';
@@ -16,6 +17,7 @@ export const appConfig: ApplicationConfig = {
       routes,
       withComponentInputBinding(),
       withPreloading(PreloadAllModules),
+      withViewTransitions(),
     ),
   ],
 };
