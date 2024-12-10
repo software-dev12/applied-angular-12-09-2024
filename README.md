@@ -1,3 +1,6 @@
+# Use this for the coding exercise:
+# https://gist.github.com/JeffryGonzalez/abcd8e8c403fb7f9c7fd149557cf9533
+
 # Angular Starter
 
 ## `.vscode` Folder
