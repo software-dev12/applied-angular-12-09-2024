@@ -1,6 +1,6 @@
 import {
-  Component,
   ChangeDetectionStrategy,
+  Component,
   input,
   output,
 } from '@angular/core';
@@ -26,8 +26,8 @@ import { Friend } from '../types';
   styles: ``,
 })
 export class FriendListComponent {
-  // all data must be a signal or
-  // if you really must, an observable
   peopleToList = input.required<Friend[]>();
+  // @Output() personSelected = new EventEmitter<Friend>()
   personSelected = output<Friend>();
+  // all data must be a signal or,, if you really must, an observable.
 }
