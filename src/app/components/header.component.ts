@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -12,12 +12,26 @@ import { RouterLink } from '@angular/router';
       </div>
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
-          <li><a routerLink="welcome">Welcome</a></li>
-          <li><a routerLink="meals">Meals</a></li>
+          @for (link of listOfLinks(); track link.href) {
+            <li>
+              <a [routerLink]="[link.href]">{{ link.text }}</a>
+            </li>
+          }
         </ul>
       </div>
     </div>
   `,
   styles: ``,
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  listOfLinks = signal([
+    {
+      text: 'Welcome',
+      href: 'welcome',
+    },
+    {
+      text: 'Meals',
+      href: 'meals',
+    },
+  ]);
+}

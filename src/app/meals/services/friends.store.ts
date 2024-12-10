@@ -2,17 +2,25 @@ import {
   patchState,
   signalStore,
   withComputed,
+  withHooks,
   withMethods,
   withState,
 } from '@ngrx/signals';
-import { addEntity, removeEntity, withEntities } from '@ngrx/signals/entities';
+import {
+  addEntity,
+  removeEntity,
+  setEntities,
+  withEntities,
+} from '@ngrx/signals/entities';
 import { Friend } from '../types';
 import { computed } from '@angular/core';
+import { withDevtools } from '@angular-architects/ngrx-toolkit';
 
 type FriendsState = {
-  selectedFriend: Friend | undefined;
+  selectedFriend: string | undefined;
 };
 export const FriendsStore = signalStore(
+  withDevtools('freinds'),
   withState<FriendsState>({
     selectedFriend: undefined,
   }),
@@ -21,11 +29,16 @@ export const FriendsStore = signalStore(
     // this spot coming soon.
     return {
       numberOfFriends: computed(() => store.entities().length),
+      selectedFriendInfo: computed(() => {
+        const id = store.selectedFriend() || '';
+
+        return store.entityMap()[id];
+      }),
     };
   }),
   withMethods((store) => {
     return {
-      setSelectedFriend: (friend: Friend) =>
+      setSelectedFriend: (friend: string) =>
         patchState(store, { selectedFriend: friend }),
       addFriend: (name: string) => {
         const friendToAdd: Friend = {
@@ -36,10 +49,20 @@ export const FriendsStore = signalStore(
       },
       unFriend: () => {
         if (store.selectedFriend() !== undefined) {
-          const id = store.selectedFriend()?.id || '';
+          const id = store.selectedFriend() || '';
           patchState(store, removeEntity(id));
         }
       },
     };
+  }),
+  withHooks({
+    onInit(store) {
+      const fakeFriends: Friend[] = [
+        { id: '1', name: 'Byron' },
+        { id: '2', name: 'Jamie' },
+        { id: '3', name: 'Michelle' },
+      ];
+      patchState(store, setEntities(fakeFriends));
+    },
   }),
 );
