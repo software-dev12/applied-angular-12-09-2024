@@ -13,7 +13,7 @@ import { RouterLink } from '@angular/router';
       <div class="flex-none">
         <ul class="menu menu-horizontal px-1">
           <li><a routerLink="welcome">Welcome</a></li>
-          <li><a routerLink="new-stuff">New Stuff</a></li>
+          <li><a routerLink="meals">Meals</a></li>
         </ul>
       </div>
     </div>
