@@ -2,11 +2,12 @@ import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { FriendListComponent } from './components/friend-list.component';
 import { FriendStatsComponent } from './components/friend-stats.component';
 import { FriendsStore } from './services/friends.store';
+import { FriendCreateComponent } from './components/friend.create.component';
 
 @Component({
   selector: 'app-stuff',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [FriendListComponent, FriendStatsComponent],
+  imports: [FriendListComponent, FriendStatsComponent, FriendCreateComponent],
   template: `
     <p>Meal Trading</p>
     <app-friend-stats [numberOfFriends]="store.numberOfFriends()" />
@@ -20,6 +21,8 @@ import { FriendsStore } from './services/friends.store';
         Unfriend This Person?
       </button>
     }
+
+    <app-friend-create (personAdded)="store.addFriend($event)" />
   `,
   styles: ``,
 })
