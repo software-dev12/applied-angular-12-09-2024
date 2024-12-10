@@ -6,7 +6,7 @@ import { FriendsStore } from './services/friends.store';
 
 export const MEAL_ROUTES: Routes = [
   {
-    path: '', // app routes, 'meals' points to this
+    path: '', // app routes, 'meals' points to this.
     component: MealsComponent,
     providers: [FriendsStore],
     children: [

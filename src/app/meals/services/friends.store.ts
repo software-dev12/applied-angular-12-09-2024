@@ -6,8 +6,8 @@ import {
   withState,
 } from '@ngrx/signals';
 import { addEntity, removeEntity, withEntities } from '@ngrx/signals/entities';
-import { computed } from '@angular/core';
 import { Friend } from '../types';
+import { computed } from '@angular/core';
 
 type FriendsState = {
   selectedFriend: Friend | undefined;

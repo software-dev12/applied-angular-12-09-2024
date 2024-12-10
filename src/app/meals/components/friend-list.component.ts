@@ -1,10 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  input,
-  output,
-} from '@angular/core';
-import { Friend } from '../types';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { FriendsStore } from '../services/friends.store';
 
 @Component({
   selector: 'app-friend-list',
@@ -12,9 +7,9 @@ import { Friend } from '../types';
   imports: [],
   template: `
     <ul>
-      @for (friend of peopleToList(); track friend.id) {
+      @for (friend of store.entities(); track friend.id) {
         <li>
-          <button (click)="personSelected.emit(friend)">
+          <button (click)="store.setSelectedFriend(friend)">
             {{ friend.name }}
           </button>
         </li>
@@ -26,8 +21,5 @@ import { Friend } from '../types';
   styles: ``,
 })
 export class FriendListComponent {
-  peopleToList = input.required<Friend[]>();
-  // @Output() personSelected = new EventEmitter<Friend>()
-  personSelected = output<Friend>();
-  // all data must be a signal or,, if you really must, an observable.
+  store = inject(FriendsStore);
 }

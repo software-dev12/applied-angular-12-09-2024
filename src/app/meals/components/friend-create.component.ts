@@ -1,10 +1,16 @@
-import { ChangeDetectionStrategy, Component, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  output,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { FriendsStore } from '../services/friends.store';
 
 @Component({
   selector: 'app-friend-create',
@@ -53,6 +59,7 @@ import {
 })
 export class FriendCreateComponent {
   personAdded = output<string>();
+  store = inject(FriendsStore);
   form = new FormGroup({
     name: new FormControl('', {
       validators: [Validators.required, Validators.minLength(3)],
@@ -62,7 +69,7 @@ export class FriendCreateComponent {
 
   addFriend() {
     if (this.form.valid) {
-      this.personAdded.emit(this.form.controls.name.value);
+      this.store.addFriend(this.form.controls.name.value);
       this.form.reset();
     } else {
       this.form.markAllAsTouched();

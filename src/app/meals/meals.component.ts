@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FriendsStore } from '../meals/services/friends.store';
-import { RouterLink, RouterOutlet } from '@angular/router';
 import { FriendStatsComponent } from './components/friend-stats.component';
+import { FriendsStore } from './services/friends.store';
+import { RouterLink, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-meals',
