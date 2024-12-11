@@ -11,7 +11,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { FriendsStore } from '../services/friends.store';
-import { debounceTime, filter, map, tap } from 'rxjs';
+import { debounceTime, filter, tap } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
