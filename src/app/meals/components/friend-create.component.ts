@@ -4,15 +4,15 @@ import {
   inject,
   output,
 } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { FriendsStore } from '../services/friends.store';
 import { debounceTime, filter, tap } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FriendsStore } from '../services/friends.store';
 
 @Component({
   selector: 'app-friend-create',

@@ -1,9 +1,9 @@
 import { CurrencyPipe } from '@angular/common';
 import {
-  Component,
   ChangeDetectionStrategy,
-  signal,
+  Component,
   inject,
+  signal
 } from '@angular/core';
 import { AtmStore } from '../services/atm.store';
 

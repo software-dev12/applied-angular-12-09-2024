@@ -16,11 +16,6 @@ export const routes: Routes = [
       import('./meals/meals.routes').then((c) => c.MEAL_ROUTES),
   },
   {
-    path: 'counter',
-    loadChildren: () =>
-      import('./counter/counter.routes').then((r) => r.COUNTER_ROUTES),
-  },
-  {
     path: 'atm',
     loadChildren: () => import('./atm/atm.routes').then((r) => r.ATM_ROUTES),
   },
@@ -31,6 +26,11 @@ export const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
+  },
+  {
+    path: 'counter',
+    loadChildren: () =>
+      import('./counter/counter.routes').then((r) => r.COUNTER_ROUTES),
   },
   {
     path: '**',

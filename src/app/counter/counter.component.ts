@@ -4,17 +4,13 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 @Component({
   selector: 'app-counter',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  imports: [RouterLink, RouterOutlet],
+  imports: [RouterOutlet, RouterLink],
   template: `
-    <div>Counter Stuff Goes Here</div>
-
-    <div class="flex gap-12">
-      <a routerLink="ui" class="btn btn-primary btn-sm">UI</a>
+    <div class="flex gap-8">
+      <a class="link" routerLink="ui">Count</a>
+      <a class="link" routerLink="prefs">Prefs</a>
     </div>
-
-    <div class="p-12">
-      <router-outlet></router-outlet>
-    </div>
+    <router-outlet />
   `,
   styles: ``,
 })

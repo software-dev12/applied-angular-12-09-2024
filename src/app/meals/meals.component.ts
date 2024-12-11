@@ -1,7 +1,7 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { FriendStatsComponent } from './components/friend-stats.component';
-import { FriendsStore } from './services/friends.store';
+import { ChangeDetectionStrategy, Component, resource } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { FriendStatsComponent } from './components/friend-stats.component';
+import { Friend } from './types';
 
 @Component({
   selector: 'app-meals',
@@ -12,7 +12,7 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
     <div class="drawer lg:drawer-open">
       <input id="my-drawer-2" type="checkbox" class="drawer-toggle" />
       <div class="drawer-content flex flex-col ">
-        <app-friend-stats [numberOfFriends]="store.numberOfFriends()" />
+        <app-friend-stats />
         <router-outlet />
         <label
           for="my-drawer-2"
@@ -45,9 +45,28 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
         </ul>
       </div>
     </div>
+
+    <div>
+      @if (friends.error()) {
+        <p>Blammo!</p>
+      }
+      @if (friends.isLoading()) {
+        <p>Getting Your Friends</p>
+      } @else {
+        <ul>
+          @for (friend of friends.value(); track friend.id) {
+            <li>
+              {{ friend.name }} {{ friend.id }} {{ friend.boughtLastTime }}
+            </li>
+          }
+        </ul>
+      }
+    </div>
   `,
   styles: ``,
 })
 export class MealsComponent {
-  store = inject(FriendsStore);
+  friends = resource<Friend[], unknown>({
+    loader: () => fetch('/user/friends').then((response) => response.json()),
+  });
 }
