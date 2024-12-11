@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, resource } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 import { FriendStatsComponent } from './components/friend-stats.component';
-import { Friend } from './types';
+import { FriendsDataService } from './services/friends-data.service';
+import { FriendsStore } from './services/friends.store';
 
 @Component({
   selector: 'app-meals',
@@ -45,28 +46,8 @@ import { Friend } from './types';
         </ul>
       </div>
     </div>
-
-    <div>
-      @if (friends.error()) {
-        <p>Blammo!</p>
-      }
-      @if (friends.isLoading()) {
-        <p>Getting Your Friends</p>
-      } @else {
-        <ul>
-          @for (friend of friends.value(); track friend.id) {
-            <li>
-              {{ friend.name }} {{ friend.id }} {{ friend.boughtLastTime }}
-            </li>
-          }
-        </ul>
-      }
-    </div>
+    ]
   `,
   styles: ``,
 })
-export class MealsComponent {
-  friends = resource<Friend[], unknown>({
-    loader: () => fetch('/user/friends').then((response) => response.json()),
-  });
-}
+export class MealsComponent {}
