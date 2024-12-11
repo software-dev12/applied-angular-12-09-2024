@@ -33,5 +33,9 @@ export class HeaderComponent {
       text: 'Meals',
       href: 'meals',
     },
+    {
+      text: 'Counter',
+      href: 'counter',
+    },
   ]);
 }

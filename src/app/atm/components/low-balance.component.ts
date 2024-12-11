@@ -1,9 +1,4 @@
-import {
-  Component,
-  ChangeDetectionStrategy,
-  inject,
-  computed,
-} from '@angular/core';
+import { Component, ChangeDetectionStrategy, inject } from '@angular/core';
 import { AtmStore } from '../services/atm.store';
 
 @Component({
