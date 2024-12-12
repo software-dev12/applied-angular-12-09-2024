@@ -4,13 +4,23 @@ import { Friend } from '../app/meals/types';
 const fakeFriends: Friend[] = [
   { id: '1', name: 'Brad', boughtLastTime: true },
   { id: '2', name: 'Jules', boughtLastTime: false },
-  { id: '3', name: 'Louie', boughtLastTime: true },
-  { id: '4', name: 'Michael', boughtLastTime: false },
 ];
 const handlers = [
+  http.post('/api/user/friends-that-owe-you-lunch/', async ({ request }) => {
+    await delay();
+    const body = (await request.json()) as unknown as Friend;
+    body.boughtLastTime = false;
+    return HttpResponse.json(body);
+  }),
+  http.post('/api/user/friends-that-you-owe-lunch/', async ({ request }) => {
+    await delay();
+    const body = (await request.json()) as unknown as Friend;
+    body.boughtLastTime = true;
+    return HttpResponse.json(body);
+  }),
   http.get('/api/user/friends', async () => {
-    await delay(3000);
-    return HttpResponse.json([{ food: 'Tacos', rating: 'Delicious' }]);
+    await delay();
+    return HttpResponse.json(fakeFriends);
   }),
   http.post('/api/user/friends', async ({ request }) => {
     await delay(5000);
